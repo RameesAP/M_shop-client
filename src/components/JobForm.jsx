@@ -33,7 +33,7 @@ const JobForm = () => {
             htmlFor="text"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            User Name
+            Costumer Name
           </label>
           <input
             type="text"
@@ -137,6 +137,40 @@ const JobForm = () => {
             <input
               type="text"
               id="category"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Category"
+              required
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="email"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Condition
+            </label>
+            <input
+              type="text"
+              id="condition"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Model Number"
+              required
+              onChange={handleChange}
+            />
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="category"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Place
+            </label>
+            <input
+              type="text"
+              id="place"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Category"
               required

@@ -47,8 +47,8 @@ const SignIn = () => {
     }
   };
   return (
-    <div className="flex justify-between items-center   mx-auto ">
-      <div className="w-full h-screen bg-[#F4F4F4]  flex items-center justify-center">
+    <div className="flex justify-between items-center border h-screen  mx-auto  ">
+      <div className="w-full h-screen bg-[#F4F4F4] border  flex items-center justify-center">
         <div className=" h-[555px] w-[656px] flex flex-col items-center justify-center">
           <h1 className="font-bold text-xl mb-5">Login to your account</h1>
           <form
@@ -56,14 +56,14 @@ const SignIn = () => {
             className="flex flex-col gap-4 items-center"
           >
             <input
-              className="w-96 h-[60px] p-2"
+              className="w-80 h-[60px] p-2 md:w-96 md:h-[60px]"
               type="email"
               placeholder="Email"
               id="email"
               onChange={handleChange}
             />
             <input
-              className="w-96 h-[60px] p-2"
+              className="w-80 h-[60px] p-2 md:w-96 md:h-[60px]"
               type="password"
               placeholder="Password"
               id="password"
