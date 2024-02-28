@@ -19,6 +19,7 @@ function App() {
       <Navbar toggleSidebar={toggleSidebar} />
       <Sidebar isOpen={isSidebarOpen} />
       <Routes>
+        <Route path="/sign-in" element />
         <Route path="/" element={<Dashboard />} />
         <Route path="/user" element={<User />} />
         <Route path="/addjob" element={<AddJob />} />
