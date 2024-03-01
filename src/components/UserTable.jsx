@@ -120,7 +120,7 @@ const UserTable = () => {
             >
               User name {renderSortIcon("username")}
             </th>
-            <th
+            {/* <th
               scope="col"
               className="px-6 py-3"
               onClick={() => handleSort("address")}
@@ -128,7 +128,7 @@ const UserTable = () => {
               <div className="flex items-center">
                 Address {renderSortIcon("address")}
               </div>
-            </th>
+            </th> */}
             <th
               scope="col"
               className="px-6 py-3"
@@ -165,7 +165,7 @@ const UserTable = () => {
                 Model {renderSortIcon("model")}
               </div>
             </th>
-            <th
+            {/* <th
               scope="col"
               className="px-6 py-3"
               onClick={() => handleSort("category")}
@@ -173,7 +173,7 @@ const UserTable = () => {
               <div className="flex items-center">
                 Category {renderSortIcon("category")}
               </div>
-            </th>
+            </th> */}
             <th
               scope="col"
               className="px-6 py-3"
@@ -251,12 +251,12 @@ const UserTable = () => {
               <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 {item.username}
               </td>
-              <td className="px-6 py-4">{item.address}</td>
+              {/* <td className="px-6 py-4">{item.address}</td> */}
               <td className="px-6 py-4">{item.problem}</td>
               <td className="px-6 py-4">{item.number}</td>
               <td className="px-6 py-4">{item.brand}</td>
               <td className="px-6 py-4">{item.model}</td>
-              <td className="px-6 py-4">{item.category}</td>
+              {/* <td className="px-6 py-4">{item.category}</td> */}
               <td className="px-6 py-4">{item.condition}</td>
               <td className="px-6 py-4">{item.place}</td>
               {/* <td className="px-6 py-4">{item.ime}</td> */}
