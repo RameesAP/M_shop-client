@@ -334,7 +334,7 @@ const UserTable = () => {
                     getStatusColor(item.status).borderColor
                   } ${
                     getStatusColor(item.status).textColor
-                  } text-center font-semibold`}
+                  } text-center font-semibold uppercase`}
                 >
                   {item.status}
                 </div>

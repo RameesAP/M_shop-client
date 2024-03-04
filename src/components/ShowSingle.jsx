@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const EditSingle = () => {
+const ShowSingle = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -67,39 +67,39 @@ const EditSingle = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch(`/api/user/editsingleitem/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          deliveryOption: deliveryOption,
-        }),
-      });
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const res = await fetch(`/api/user/editsingleitem/${id}`, {
+//         method: "PUT",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({
+//           ...formData,
+//           deliveryOption: deliveryOption,
+//         }),
+//       });
 
-      const data = await res.json();
-      if (data.success === false) {
-        setLoading(false);
-        setError(data.message);
-        return;
-      }
+//       const data = await res.json();
+//       if (data.success === false) {
+//         setLoading(false);
+//         setError(data.message);
+//         return;
+//       }
 
-      setLoading(false);
-      setError(null);
+//       setLoading(false);
+//       setError(null);
 
-      navigate("/user");
-    } catch (error) {
-      setLoading(false);
-      setError(error.message);
-    }
-  };
+//       navigate("/user");
+//     } catch (error) {
+//       setLoading(false);
+//       setError(error.message);
+//     }
+//   };
   return (
     <div>
-      <form onSubmit={handleSubmit} className="max-w-5xl mx-auto  text-black">
+      <form  className="max-w-5xl mx-auto  text-black">
         <div className="relative z-0 w-full mb-5 group ">
           <label
             htmlFor="text"
@@ -115,6 +115,7 @@ const EditSingle = () => {
             required
             value={formData.username || ""}
             onChange={handleChange}
+            disabled
           />
         </div>
         <div className="relative z-0 w-full mb-5 group">
@@ -132,6 +133,7 @@ const EditSingle = () => {
             required
             value={formData.address || ""}
             onChange={handleChange}
+            disabled
           />
         </div>
         <div className="relative z-0 w-full mb-5 group">
@@ -149,6 +151,7 @@ const EditSingle = () => {
             required
             value={formData.problem || ""}
             onChange={handleChange}
+            disabled
           />
         </div>
         <div className="relative z-0 w-full mb-5 group">
@@ -162,6 +165,7 @@ const EditSingle = () => {
             id="status"
             value={formData.status || ""}
             onChange={handleChange}
+            disabled
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option value="">Select Status</option>
@@ -186,6 +190,7 @@ const EditSingle = () => {
               required
               value={formData.number || ""}
               onChange={handleChange}
+              disabled
             />
           </div>
           <div className="relative z-0 w-full mb-5 group">
@@ -203,6 +208,7 @@ const EditSingle = () => {
               required
               value={formData.brand || ""}
               onChange={handleChange}
+              disabled
             />
           </div>
         </div>
@@ -222,6 +228,7 @@ const EditSingle = () => {
               required
               value={formData.model || ""}
               onChange={handleChange}
+              disabled
             />
           </div>
           <div className="relative z-0 w-full mb-5 group">
@@ -239,6 +246,7 @@ const EditSingle = () => {
               required
               value={formData.category || ""}
               onChange={handleChange}
+              disabled
             />
           </div>
         </div>
@@ -258,6 +266,7 @@ const EditSingle = () => {
               required
               value={formData.condition || ""}
               onChange={handleChange}
+              disabled
             />
           </div>
           <div className="relative z-0 w-full mb-5 group">
@@ -275,6 +284,7 @@ const EditSingle = () => {
               required
               value={formData.place || ""}
               onChange={handleChange}
+              disabled
             />
           </div>
         </div>
@@ -294,6 +304,7 @@ const EditSingle = () => {
               required
               value={formData.ime || ""}
               onChange={handleChange}
+              disabled
             />
           </div>
           <div className="relative z-0 w-full mb-5 group">
@@ -311,6 +322,7 @@ const EditSingle = () => {
                     type="radio"
                     name="deliveryOption"
                     value={option}
+                 
                     onChange={handleDeliveryOptionChange}
                     checked={deliveryOption === option}
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -342,6 +354,7 @@ const EditSingle = () => {
               required
               value={formData.password || ""}
               onChange={handleChange}
+              disabled
             />
           </div>
           <div className="relative z-0 w-full mb-5 group">
@@ -359,12 +372,13 @@ const EditSingle = () => {
               required
               value={formData.remark || ""}
               onChange={handleChange}
+              disabled
             />
           </div>
         </div>
-        <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        {/* <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           {loading ? "Loading" : "Submit"}
-        </button>
+        </button> */}
 
         {error && <p className="text-red-500 mt-5">{error}</p>}
       </form>
@@ -372,4 +386,4 @@ const EditSingle = () => {
   );
 };
 
-export default EditSingle;
+export default ShowSingle;

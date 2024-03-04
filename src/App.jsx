@@ -10,6 +10,8 @@ import SignIn from "./pages/SignIn";
 import { useSelector } from "react-redux";
 import PrivateRoute from "./components/Privaterouter";
 import SingleEdit from "./pages/SingleEdit";
+import Preview from "./pages/Preview";
+
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -37,7 +39,7 @@ function App() {
           <Route path="/user" element={<User />} />
           <Route path="/addjob" element={<AddJob />} />
           <Route path="/edit/:id" element={<SingleEdit />} />
-          <Route path="/getsingle/:id" element={<SingleEdit />} />
+          <Route path="/getsingle/:id" element={<Preview />} />
         </Route>
       </Routes>
     </BrowserRouter>
