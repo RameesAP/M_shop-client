@@ -1,4 +1,7 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { FaEye } from "react-icons/fa";
 
 const UserTable = () => {
   const [sortOrder, setSortOrder] = useState("asc");
@@ -19,6 +22,24 @@ const UserTable = () => {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+  };
+
+  const handleDelete = async (itemId) => {
+    try {
+      const response = await axios.delete(`/api/user/deleteitem/${itemId}`);
+
+      // Check the response and handle it accordingly
+      if (response.status === 200) {
+        console.log("Item deleted successfully");
+        setData((prevData) => prevData.filter((item) => item._id !== itemId));
+        // Optionally, update your component state or perform other actions
+      } else {
+        console.log("Error deleting item");
+        // Handle the error
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -50,6 +71,27 @@ const UserTable = () => {
     }
     return null;
   };
+  // Utility function to map status to colors
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "new":
+        return { borderColor: "border-red-500", textColor: "text-red-500" };
+      case "pending":
+        return {
+          borderColor: "border-orange-500",
+          textColor: "text-orange-500",
+        };
+      case "working":
+        return {
+          borderColor: "border-yellow-500",
+          textColor: "text-yellow-500",
+        };
+      case "completed":
+        return { borderColor: "border-green-500", textColor: "text-green-500" };
+      default:
+        return { borderColor: "border-gray-500", textColor: "text-gray-500" };
+    }
+  };
 
   const sortedData = data.slice().sort((a, b) => {
     const aValue = sortColumn ? a[sortColumn] : null;
@@ -66,12 +108,24 @@ const UserTable = () => {
     }
   });
 
-  const filteredData = sortedData.filter((item) =>
-    Object.values(item).some(
-      (value) =>
-        value &&
-        value.toString().toLowerCase().includes(searchQuery.toLowerCase())
-    )
+  // if you need search all field values use this code
+
+  // const filteredData = sortedData.filter((item) =>
+  //   Object.values(item).some(
+  //     (value) =>
+  //       value &&
+  //       value.toString().toLowerCase().includes(searchQuery.toLowerCase())
+  //   )
+  // );
+
+  // this code only search jobno and username nad number
+
+  const filteredData = sortedData.filter(
+    (item) =>
+      (item.jobsheetno && item.jobsheetno.toString().includes(searchQuery)) ||
+      (item.username &&
+        item.username.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (item.number && item.number.toString().includes(searchQuery))
   );
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -101,7 +155,7 @@ const UserTable = () => {
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <div className="border rounded-lg bg-white mb-5">
+      <div className="border rounded-lg bg-white mb-5 ">
         <input
           className="w-full h-full p-2"
           type="search"
@@ -110,9 +164,21 @@ const UserTable = () => {
           onChange={handleSearch}
         />
       </div>
+      <Link to={"/addjob"}>
+        <button className=" w-fit text-white mb-3 p-2 px-5 rounded-lg bg-green-500">
+          Add Job
+        </button>
+      </Link>
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
+            <th
+              scope="col"
+              className="px-6 py-3"
+              onClick={() => handleSort("jobsheetno")}
+            >
+              Job No {renderSortIcon("jobsheetno")}
+            </th>
             <th
               scope="col"
               className="px-6 py-3"
@@ -156,7 +222,7 @@ const UserTable = () => {
                 Brand {renderSortIcon("brand")}
               </div>
             </th>
-            <th
+            {/* <th
               scope="col"
               className="px-6 py-3"
               onClick={() => handleSort("model")}
@@ -164,7 +230,7 @@ const UserTable = () => {
               <div className="flex items-center">
                 Model {renderSortIcon("model")}
               </div>
-            </th>
+            </th> */}
             {/* <th
               scope="col"
               className="px-6 py-3"
@@ -174,7 +240,7 @@ const UserTable = () => {
                 Category {renderSortIcon("category")}
               </div>
             </th> */}
-            <th
+            {/* <th
               scope="col"
               className="px-6 py-3"
               onClick={() => handleSort("condition")}
@@ -182,7 +248,7 @@ const UserTable = () => {
               <div className="flex items-center">
                 Condition {renderSortIcon("condition")}
               </div>
-            </th>
+            </th> */}
             <th
               scope="col"
               className="px-6 py-3"
@@ -207,7 +273,7 @@ const UserTable = () => {
               onClick={() => handleSort("deliveryOption")}
             >
               <div className="flex items-center ">
-                Delivery Option {renderSortIcon("deliveryOption")}
+                Delivery{renderSortIcon("deliveryOption")}
               </div>
             </th>
             <th
@@ -219,7 +285,7 @@ const UserTable = () => {
                 status {renderSortIcon("status")}
               </div>
             </th>
-            <th
+            {/* <th
               scope="col"
               className="px-6 py-3"
               onClick={() => handleSort("password")}
@@ -227,8 +293,8 @@ const UserTable = () => {
               <div className="flex items-center ">
                 Password {renderSortIcon("password")}
               </div>
-            </th>
-            <th
+            </th> */}
+            {/* <th
               scope="col"
               className="px-6 py-3"
               onClick={() => handleSort("remark")}
@@ -236,8 +302,8 @@ const UserTable = () => {
               <div className="flex items-center ">
                 Remark {renderSortIcon("remark")}
               </div>
-            </th>
-            <th scope="col" className=" px-6 py-3  flex mt-2 justify-center">
+            </th> */}
+            <th scope="col" className=" px-6 py-3  ">
               Action
             </th>
           </tr>
@@ -249,44 +315,50 @@ const UserTable = () => {
               className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
             >
               <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {item.username}
+                {item.jobsheetno}
               </td>
               {/* <td className="px-6 py-4">{item.address}</td> */}
+              <td className="px-6 py-4">{item.username}</td>
               <td className="px-6 py-4">{item.problem}</td>
               <td className="px-6 py-4">{item.number}</td>
               <td className="px-6 py-4">{item.brand}</td>
-              <td className="px-6 py-4">{item.model}</td>
+              {/* <td className="px-6 py-4">{item.model}</td> */}
               {/* <td className="px-6 py-4">{item.category}</td> */}
-              <td className="px-6 py-4">{item.condition}</td>
+              {/* <td className="px-6 py-4">{item.condition}</td> */}
               <td className="px-6 py-4">{item.place}</td>
               {/* <td className="px-6 py-4">{item.ime}</td> */}
               <td className="px-6 py-4">{item.deliveryOption}</td>
-              <td className="px-6 py-4">
+              <td className="px-6 py-4 ">
                 <div
                   className={`border-2 p-2 px-3 rounded-lg ${
-                    item.status === "pending"
-                      ? "border-red-500"
-                      : "border-gray-500"
-                  }`}
+                    getStatusColor(item.status).borderColor
+                  } ${
+                    getStatusColor(item.status).textColor
+                  } text-center font-semibold`}
                 >
                   {item.status}
                 </div>
               </td>
-              <td className="px-6 py-4">{item.password}</td>
-              <td className="px-6 py-4">{item.remark}</td>
-              <td className="px-6 py-4 text-right ">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600  bg-blue-500 mr-3 p-2 px-5 rounded-lg  dark:text-white hover:underline"
-                >
-                  Edit
-                </a>
-                <a
-                  href="#"
+              {/* <td className="px-6 py-4">{item.password}</td> */}
+              {/* <td className="px-6 py-4">{item.remark}</td> */}
+              <td className="px-6 py-4 text-right flex">
+                <Link to={`/getsingle/${item?._id}`}>
+                  <div className="font-medium text-blue-600  bg-purple-500 mr-3  p-2 px-5 rounded-lg dark:text-white hover:underline flex items-center justify-center">
+                    <FaEye />
+                  </div>
+                </Link>
+
+                <Link to={`/edit/${item?._id}`}>
+                  <div className="font-medium text-blue-600 bg-blue-500 mr-3 p-2 px-5 rounded-lg dark:text-white hover:underline">
+                    Edit
+                  </div>
+                </Link>
+                <div
+                  onClick={() => handleDelete(item?._id)}
                   className="font-medium text-blue-600  bg-red-500 p-2 px-5 rounded-lg dark:text-white hover:underline"
                 >
                   Delete
-                </a>
+                </div>
               </td>
             </tr>
           ))}

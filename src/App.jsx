@@ -9,6 +9,7 @@ import AddJob from "./pages/AddJob";
 import SignIn from "./pages/SignIn";
 import { useSelector } from "react-redux";
 import PrivateRoute from "./components/Privaterouter";
+import SingleEdit from "./pages/SingleEdit";
 
 function App() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
@@ -35,6 +36,8 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/user" element={<User />} />
           <Route path="/addjob" element={<AddJob />} />
+          <Route path="/edit/:id" element={<SingleEdit />} />
+          <Route path="/getsingle/:id" element={<SingleEdit />} />
         </Route>
       </Routes>
     </BrowserRouter>
