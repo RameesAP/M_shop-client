@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const JobForm = () => {
   const [deliveryOption, setDeliveryOption] = useState("");
-  
+
   const [formData, setFormData] = useState({
     username: "",
     address: "",
@@ -14,6 +14,7 @@ const JobForm = () => {
     category: "",
     condition: "",
     place: "",
+    price: "",
     ime: "",
     password: "",
     remark: "",
@@ -32,6 +33,20 @@ const JobForm = () => {
       [id]: value,
     }));
   };
+  const [technicianData, setTechnicianData] = useState([]);
+
+  useEffect(() => {
+    // Fetch technician data from the API
+    fetch("/api/technician/getAllTechnician")
+      .then((response) => response.json())
+      .then((data) => {
+        // Assuming the response data is an array of objects with technician details
+        setTechnicianData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching technician data:", error);
+      });
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,6 +59,7 @@ const JobForm = () => {
         body: JSON.stringify({
           ...formData,
           deliveryOption: deliveryOption,
+          technician_name: formData.technician_name,
         }),
       });
 
@@ -66,13 +82,14 @@ const JobForm = () => {
         category: "",
         condition: "",
         place: "",
+        price: "",
         ime: "",
         password: "",
         remark: "",
       });
       setDeliveryOption("");
       // window.location.reload()
-      navigate("/user")
+      navigate("/user");
     } catch (error) {
       setLoading(false);
       setError(error.message);
@@ -328,10 +345,49 @@ const JobForm = () => {
             />
           </div>
         </div>
+        <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="technician_name"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Technician
+            </label>
+            <select
+              id="technician_name" // Change the id to match the property in formData
+              value={formData.technician_name || ""}
+              onChange={handleChange}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option value="">Select Technician</option>
+              {technicianData.map((technician) => (
+                <option key={technician._id} value={technician.technician_name}>
+                  {technician.technician_name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="category"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Price
+            </label>
+            <input
+              type="number"
+              id="price"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Price"
+              required
+              onChange={handleChange}
+            />
+          </div>
+        </div>
         <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-           {loading ? "Loading" : "Submit"}
+          {loading ? "Loading" : "Submit"}
         </button>
-        
+
         {error && <p className="text-red-500 mt-5">{error}</p>}
       </form>
     </div>

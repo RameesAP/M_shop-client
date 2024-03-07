@@ -16,6 +16,7 @@ const ShowSingle = () => {
     category: "",
     condition: "",
     place: "",
+    price: "",
     ime: "",
     password: "",
     remark: "",
@@ -41,10 +42,12 @@ const ShowSingle = () => {
           category: data.singleItem.category || "",
           condition: data.singleItem.condition || "",
           place: data.singleItem.place || "",
+          price: data.singleItem.price || "",
           ime: data.singleItem.ime || "",
           password: data.singleItem.password || "",
           remark: data.singleItem.remark || "",
           status: data.singleItem.status || "",
+          technician_name: data.singleItem.technician_name || "",
         });
 
         setDeliveryOption(data.singleItem.deliveryOption || ""); // Ensure it's set to a valid value
@@ -55,6 +58,21 @@ const ShowSingle = () => {
 
     fetchData();
   }, [id]);
+
+  const [technicianData, setTechnicianData] = useState([]);
+
+  useEffect(() => {
+    // Fetch technician data from the API
+    fetch("/api/technician/getAllTechnician")
+      .then((response) => response.json())
+      .then((data) => {
+        // Assuming the response data is an array of objects with technician details
+        setTechnicianData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching technician data:", error);
+      });
+  }, []);
 
   const handleDeliveryOptionChange = (e) => {
     setDeliveryOption(e.target.value);
@@ -67,39 +85,39 @@ const ShowSingle = () => {
     }));
   };
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const res = await fetch(`/api/user/editsingleitem/${id}`, {
-//         method: "PUT",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           ...formData,
-//           deliveryOption: deliveryOption,
-//         }),
-//       });
+  //   const handleSubmit = async (e) => {
+  //     e.preventDefault();
+  //     try {
+  //       const res = await fetch(`/api/user/editsingleitem/${id}`, {
+  //         method: "PUT",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           ...formData,
+  //           deliveryOption: deliveryOption,
+  //         }),
+  //       });
 
-//       const data = await res.json();
-//       if (data.success === false) {
-//         setLoading(false);
-//         setError(data.message);
-//         return;
-//       }
+  //       const data = await res.json();
+  //       if (data.success === false) {
+  //         setLoading(false);
+  //         setError(data.message);
+  //         return;
+  //       }
 
-//       setLoading(false);
-//       setError(null);
+  //       setLoading(false);
+  //       setError(null);
 
-//       navigate("/user");
-//     } catch (error) {
-//       setLoading(false);
-//       setError(error.message);
-//     }
-//   };
+  //       navigate("/user");
+  //     } catch (error) {
+  //       setLoading(false);
+  //       setError(error.message);
+  //     }
+  //   };
   return (
     <div>
-      <form  className="max-w-5xl mx-auto  text-black">
+      <form className="max-w-5xl mx-auto  text-black">
         <div className="relative z-0 w-full mb-5 group ">
           <label
             htmlFor="text"
@@ -322,7 +340,6 @@ const ShowSingle = () => {
                     type="radio"
                     name="deliveryOption"
                     value={option}
-                 
                     onChange={handleDeliveryOptionChange}
                     checked={deliveryOption === option}
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -371,6 +388,49 @@ const ShowSingle = () => {
               placeholder="Remark"
               required
               value={formData.remark || ""}
+              onChange={handleChange}
+              disabled
+            />
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="technician_name"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Technician
+            </label>
+            <select
+              id="technician_name" // Change the id to match the property in formData
+              value={formData.technician_name || ""}
+              onChange={handleChange}
+              disabled
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option value="">Select Technician</option>
+              {technicianData.map((technician) => (
+                <option key={technician._id} value={technician.technician_name}>
+                  {technician.technician_name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="category"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Price
+            </label>
+            <input
+              type="number"
+              id="price"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Price"
+              required
+              value={formData.price || ""}
               onChange={handleChange}
               disabled
             />

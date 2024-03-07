@@ -16,6 +16,7 @@ const EditSingle = () => {
     category: "",
     condition: "",
     place: "",
+    price: "",
     ime: "",
     password: "",
     remark: "",
@@ -41,10 +42,12 @@ const EditSingle = () => {
           category: data.singleItem.category || "",
           condition: data.singleItem.condition || "",
           place: data.singleItem.place || "",
+          price: data.singleItem.price || "",
           ime: data.singleItem.ime || "",
           password: data.singleItem.password || "",
           remark: data.singleItem.remark || "",
           status: data.singleItem.status || "",
+          technician_name: data.singleItem.technician_name || "",
         });
 
         setDeliveryOption(data.singleItem.deliveryOption || ""); // Ensure it's set to a valid value
@@ -67,6 +70,21 @@ const EditSingle = () => {
     }));
   };
 
+  const [technicianData, setTechnicianData] = useState([]);
+
+  useEffect(() => {
+    // Fetch technician data from the API
+    fetch("/api/technician/getAllTechnician")
+      .then((response) => response.json())
+      .then((data) => {
+        // Assuming the response data is an array of objects with technician details
+        setTechnicianData(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching technician data:", error);
+      });
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -78,6 +96,7 @@ const EditSingle = () => {
         body: JSON.stringify({
           ...formData,
           deliveryOption: deliveryOption,
+          technician_name: formData.technician_name,
         }),
       });
 
@@ -164,7 +183,7 @@ const EditSingle = () => {
             onChange={handleChange}
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
-            <option value="">Select Status</option>
+            <option value="new">New</option>
             <option value="pending">Pending</option>
             <option value="working">Working</option>
             <option value="completed">Completed</option>
@@ -358,6 +377,46 @@ const EditSingle = () => {
               placeholder="Remark"
               required
               value={formData.remark || ""}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="technician_name"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Technician
+            </label>
+            <select
+              id="technician_name" // Change the id to match the property in formData
+              value={formData.technician_name || ""}
+              onChange={handleChange}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option value="">Select Technician</option>
+              {technicianData.map((technician) => (
+                <option key={technician._id} value={technician.technician_name}>
+                  {technician.technician_name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="category"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Price
+            </label>
+            <input
+              type="number"
+              id="price"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Price"
+              required
+              value={formData.price || ""}
               onChange={handleChange}
             />
           </div>
