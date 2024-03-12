@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const ShowSingle = () => {
   const { id } = useParams();
@@ -116,8 +116,13 @@ const ShowSingle = () => {
   //     }
   //   };
   return (
-    <div>
-      <form className="max-w-5xl mx-auto  text-black">
+    <div className="max-w-5xl mx-auto ">
+      <Link to={`/edit/${id}`}>
+        <button className="  w-fit text-white mb-8 p-2 px-5 rounded-lg bg-blue-500">
+          Edit
+        </button>
+      </Link>
+      <form className=" text-black">
         <div className="relative z-0 w-full mb-5 group ">
           <label
             htmlFor="text"

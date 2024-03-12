@@ -22,7 +22,6 @@ function Sidebar({ isOpen }) {
         return;
       }
       dispatch(signOutUserSuccess(data));
-      window.location.reload();
     } catch (error) {
       dispatch(signOutUserFailure(error.message));
     }
@@ -38,7 +37,7 @@ function Sidebar({ isOpen }) {
     >
       <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <ul className="space-y-2 font-medium">
-          <li>
+          {/* <li>
             <Link
               to="/"
               className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
@@ -55,7 +54,7 @@ function Sidebar({ isOpen }) {
               </svg>
               <span className="ms-3">Dashboard</span>
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link
               to="/user"
@@ -70,7 +69,7 @@ function Sidebar({ isOpen }) {
               >
                 <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
               </svg>
-              <span className="flex-1 ms-3 whitespace-nowrap">Users</span>
+              <span className="flex-1 ms-3 whitespace-nowrap">Job</span>
             </Link>
           </li>
           {/* <li>

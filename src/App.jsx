@@ -32,10 +32,10 @@ function App() {
       <Routes>
         <Route
           path="/sign-in"
-          element={currentUser ? <Navigate to="/" /> : <SignIn />}
+          element={currentUser ? <Navigate to="/user" /> : <SignIn />}
         />
         <Route element={<PrivateRoute />}>
-          <Route path="/" element={<Dashboard />} />
+          {/* <Route path="/" element={<Dashboard />} /> */}
           <Route path="/user" element={<User />} />
           <Route path="/addjob" element={<AddJob />} />
           <Route path="/edit/:id" element={<SingleEdit />} />

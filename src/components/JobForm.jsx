@@ -22,16 +22,43 @@ const JobForm = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [userData, setUserData] = useState(null);
+
+  const handleUserCheck = async (mobileNumber) => {
+    try {
+      const res = await fetch(`/api/user/checkUser/${mobileNumber}`, {
+        headers: {
+          "Cache-Control": "no-store",
+        },
+      });
+      const data = await res.json();
+      console.log(data, "nummmmmmmmmmmmmmmmmmmmmmmmmm");
+      if (data.success) {
+        setUserData(data.user);
+      } else {
+        setUserData(null);
+      }
+    } catch (error) {
+      console.error("Error checking user:", error); 
+    }
+  };
+
   const handleDeliveryOptionChange = (e) => {
     setDeliveryOption(e.target.value);
   };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
+    console.log("ID:", id);
+    console.log("Value:", value);
     setFormData((prevFormData) => ({
       ...prevFormData,
       [id]: value,
     }));
+    if (id === "number" && value.length === 10) {
+      console.log("Calling handleUserCheck with 10-digit number");
+      handleUserCheck(value); // Pass the mobile number to handleUserCheck
+    } 
   };
   const [technicianData, setTechnicianData] = useState([]);
 
@@ -109,6 +136,7 @@ const JobForm = () => {
           <input
             type="text"
             id="username"
+            value={userData?.username}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="User Name"
             required
@@ -125,6 +153,7 @@ const JobForm = () => {
           <input
             type="text"
             id="address"
+            value={userData?.address}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Address"
             required
@@ -345,7 +374,7 @@ const JobForm = () => {
             />
           </div>
         </div>
-        <div className="grid md:grid-cols-2 md:gap-6">
+        {/* <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
             <label
               htmlFor="technician_name"
@@ -383,7 +412,7 @@ const JobForm = () => {
               onChange={handleChange}
             />
           </div>
-        </div>
+        </div> */}
         <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           {loading ? "Loading" : "Submit"}
         </button>

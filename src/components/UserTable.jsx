@@ -2,6 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import ScaleLoader from "react-spinners/ScaleLoader";
+import { HiOutlineDocumentDownload } from "react-icons/hi";
+import { IoIdCardOutline } from "react-icons/io5";
 
 const UserTable = () => {
   const [sortOrder, setSortOrder] = useState("asc");
@@ -10,6 +14,8 @@ const UserTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10); // You can adjust the number of items per page
   const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
 
   const handleSort = (column) => {
     setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
@@ -26,6 +32,17 @@ const UserTable = () => {
 
   const handleDelete = async (itemId) => {
     try {
+      const userConfirmed = window.confirm(
+        "Are you sure you want to delete this item?"
+      );
+
+      if (!userConfirmed) {
+        // User clicked "Cancel" in the confirmation dialog
+        console.log("Deletion cancelled by the user");
+        // Optionally, show a message to the user or perform other actions
+        return;
+      }
+
       const response = await axios.delete(`/api/user/deleteitem/${itemId}`);
 
       // Check the response and handle it accordingly
@@ -41,6 +58,37 @@ const UserTable = () => {
       console.error(error);
     }
   };
+  const handleInvoice = async (itemId, additionalData) => {
+    try {
+      // Make an API request to get the invoice data
+      const response = await fetch(`/api/user/getinvoice/${itemId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch invoice data');
+      }
+      const pdfBlob = await response.blob();
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+      window.open(pdfUrl, '_blank');
+
+      // Your logic here with the invoice data
+
+    } catch (error) {
+      console.error('Error fetching invoice data:', error);
+    }
+  };
+
+  const handleJobCard = async(itemId)=>{
+    try {
+      const response =await fetch(`/api/user/getjobcard/${itemId}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch getjobcard data');
+      }
+      const pdfBlob = await response.blob();
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+      window.open(pdfUrl, '_blank');
+    } catch (error) {
+      console.error('Error fetching getjobcard data:', error);
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,8 +97,10 @@ const UserTable = () => {
         const fetchedData = await response.json();
         console.log(fetchedData, "fettt");
         setData(fetchedData); // Set the fetched data into the state
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setLoading(false);
       }
     };
 
@@ -155,6 +205,13 @@ const UserTable = () => {
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="  w-full flex items-center justify-center">
+        {loading && (
+          <div className="">
+            <ScaleLoader color="#36d7b7" />
+          </div>
+        )}
+      </div>
       <div className="border rounded-lg bg-white mb-5 ">
         <input
           className="w-full h-full p-2"
@@ -169,6 +226,7 @@ const UserTable = () => {
           Add Job
         </button>
       </Link>
+
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -347,6 +405,12 @@ const UserTable = () => {
                     <FaEye />
                   </div>
                 </Link>
+                <div
+                  onClick={() => handleJobCard(item?._id)}
+                  className="font-medium text-blue-600  bg-teal-400 mr-3  p-2 px-5 rounded-lg dark:text-white hover:underline flex items-center justify-center hover:cursor-pointer"
+                >
+               <IoIdCardOutline size={20}/>
+                </div>
 
                 <Link to={`/edit/${item?._id}`}>
                   <div className="font-medium text-blue-600 bg-blue-500 mr-3 p-2 px-5 rounded-lg dark:text-white hover:underline">
@@ -355,9 +419,15 @@ const UserTable = () => {
                 </Link>
                 <div
                   onClick={() => handleDelete(item?._id)}
-                  className="font-medium text-blue-600  bg-red-500 p-2 px-5 rounded-lg dark:text-white hover:underline"
+                  className="font-medium text-blue-600  bg-red-500 p-2 px-5 rounded-lg dark:text-white hover:underline hover:cursor-pointer"
                 >
                   Delete
+                </div>
+                <div
+                  onClick={() => handleInvoice(item?._id)}
+                  className="font-medium text-blue-600  bg-green-500 ml-3  p-2 px-5 rounded-lg dark:text-white hover:underline flex items-center justify-center hover:cursor-pointer"
+                >
+                  <HiOutlineDocumentDownload size={20} />
                 </div>
               </td>
             </tr>
