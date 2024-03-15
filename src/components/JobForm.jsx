@@ -39,7 +39,7 @@ const JobForm = () => {
         setUserData(null);
       }
     } catch (error) {
-      console.error("Error checking user:", error); 
+      console.error("Error checking user:", error);
     }
   };
 
@@ -58,7 +58,7 @@ const JobForm = () => {
     if (id === "number" && value.length === 10) {
       console.log("Calling handleUserCheck with 10-digit number");
       handleUserCheck(value); // Pass the mobile number to handleUserCheck
-    } 
+    }
   };
   const [technicianData, setTechnicianData] = useState([]);
 
@@ -131,14 +131,14 @@ const JobForm = () => {
             htmlFor="text"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Costumer Name
+            Name
           </label>
           <input
             type="text"
             id="username"
             value={userData?.username}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="User Name"
+            placeholder="Name"
             required
             onChange={handleChange}
           />
@@ -198,13 +198,13 @@ const JobForm = () => {
               htmlFor="brand"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Product Brand
+              Brand
             </label>
             <input
               type="text"
               id="brand"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Product brand"
+              placeholder="Brand"
               required
               onChange={handleChange}
             />
@@ -222,7 +222,7 @@ const JobForm = () => {
               type="text"
               id="model"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Model Number"
+              placeholder="Model"
               required
               onChange={handleChange}
             />
@@ -244,24 +244,24 @@ const JobForm = () => {
             />
           </div>
         </div>
-        <div className="grid md:grid-cols-2 md:gap-6">
-          <div className="relative z-0 w-full mb-5 group">
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Condition
-            </label>
-            <input
-              type="text"
-              id="condition"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Condition"
-              required
-              onChange={handleChange}
-            />
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
+
+        <div className="relative z-0 w-full mb-5 group">
+          <label
+            htmlFor="email"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Condition
+          </label>
+          <input
+            type="text"
+            id="condition"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Condition"
+            required
+            onChange={handleChange}
+          />
+        </div>
+        {/* <div className="relative z-0 w-full mb-5 group">
             <label
               htmlFor="category"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -276,8 +276,8 @@ const JobForm = () => {
               required
               onChange={handleChange}
             />
-          </div>
-        </div>
+          </div> */}
+
         <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
             <label

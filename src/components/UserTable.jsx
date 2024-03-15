@@ -307,7 +307,7 @@ const UserTable = () => {
                 Condition {renderSortIcon("condition")}
               </div>
             </th> */}
-            <th
+            {/* <th
               scope="col"
               className="px-6 py-3"
               onClick={() => handleSort("place")}
@@ -315,7 +315,7 @@ const UserTable = () => {
               <div className="flex items-center">
                 Place {renderSortIcon("place")}
               </div>
-            </th>
+            </th> */}
             {/* <th
               scope="col"
               className="px-6 py-3"
@@ -383,7 +383,7 @@ const UserTable = () => {
               {/* <td className="px-6 py-4">{item.model}</td> */}
               {/* <td className="px-6 py-4">{item.category}</td> */}
               {/* <td className="px-6 py-4">{item.condition}</td> */}
-              <td className="px-6 py-4">{item.place}</td>
+              {/* <td className="px-6 py-4">{item.place}</td> */}
               {/* <td className="px-6 py-4">{item.ime}</td> */}
               <td className="px-6 py-4">{item.deliveryOption}</td>
               <td className="px-6 py-4 ">
@@ -438,7 +438,7 @@ const UserTable = () => {
         className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4"
         aria-label="Table navigation"
       >
-        <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+        <span className="text-sm font-normal text-gray-800 dark:text-gray-800 mb-4 md:mb-0 block w-full md:inline md:w-auto">
           Showing{" "}
           <span className="font-semibold text-gray-900 dark:text-white">
             {indexOfFirstItem + 1}-{indexOfLastItem}{" "}

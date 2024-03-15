@@ -128,7 +128,7 @@ const ShowSingle = () => {
             htmlFor="text"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Customer Name
+            Name
           </label>
           <input
             type="text"
@@ -221,7 +221,7 @@ const ShowSingle = () => {
               htmlFor="brand"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Product Brand
+              Brand
             </label>
             <input
               type="text"
@@ -273,7 +273,7 @@ const ShowSingle = () => {
             />
           </div>
         </div>
-        <div className="grid md:grid-cols-2 md:gap-6">
+       
           <div className="relative z-0 w-full mb-5 group">
             <label
               htmlFor="email"
@@ -292,7 +292,7 @@ const ShowSingle = () => {
               disabled
             />
           </div>
-          <div className="relative z-0 w-full mb-5 group">
+          {/* <div className="relative z-0 w-full mb-5 group">
             <label
               htmlFor="category"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -309,8 +309,8 @@ const ShowSingle = () => {
               onChange={handleChange}
               disabled
             />
-          </div>
-        </div>
+          </div> */}
+     
         <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
             <label
