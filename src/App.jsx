@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import PrivateRoute from "./components/Privaterouter";
 import SingleEdit from "./pages/SingleEdit";
 import Preview from "./pages/Preview";
+import Completed from "./pages/Completed";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           {/* <Route path="/" element={<Dashboard />} /> */}
           <Route path="/user" element={<User />} />
+          <Route path="/completed" element={<Completed />} />
           <Route path="/addjob" element={<AddJob />} />
           <Route path="/edit/:id" element={<SingleEdit />} />
           <Route path="/getsingle/:id" element={<Preview />} />
