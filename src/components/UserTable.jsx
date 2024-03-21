@@ -125,7 +125,7 @@ const UserTable = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case "new":
-        return { borderColor: "border-red-500", textColor: "text-red-500" };
+        return { borderColor: "border-blue-700", textColor: "text-blue-700" };
       case "pending":
         return {
           borderColor: "border-orange-500",
@@ -135,6 +135,11 @@ const UserTable = () => {
         return {
           borderColor: "border-yellow-500",
           textColor: "text-yellow-500",
+        };
+      case "not completed":
+        return {
+          borderColor: "border-red-500",
+          textColor: "text-red-500",
         };
       case "completed":
         return { borderColor: "border-green-500", textColor: "text-green-500" };
@@ -212,9 +217,9 @@ const UserTable = () => {
           </div>
         )}
       </div>
-      <div className="border rounded-lg bg-white mb-5 ">
+      <div className="border  rounded-lg bg-white mb-5 ">
         <input
-          className="w-full h-full p-2"
+          className="w-full h-full p-2 outline-none"
           type="search"
           placeholder="Search"
           value={searchQuery}
@@ -222,7 +227,7 @@ const UserTable = () => {
         />
       </div>
       <Link to={"/addjob"}>
-        <button className=" w-fit text-white mb-3 p-2 px-5 rounded-lg bg-green-500">
+        <button className=" w-fit text-white mb-10 p-2 px-5 rounded-lg bg-green-500">
           Add Job
         </button>
       </Link>
@@ -242,7 +247,7 @@ const UserTable = () => {
               className="px-6 py-3"
               onClick={() => handleSort("username")}
             >
-              User name {renderSortIcon("username")}
+               Name {renderSortIcon("username")}
             </th>
             {/* <th
               scope="col"
@@ -253,7 +258,7 @@ const UserTable = () => {
                 Address {renderSortIcon("address")}
               </div>
             </th> */}
-            <th
+            {/* <th
               scope="col"
               className="px-6 py-3"
               onClick={() => handleSort("problem")}
@@ -261,7 +266,7 @@ const UserTable = () => {
               <div className="flex items-center">
                 Problem {renderSortIcon("problem")}
               </div>
-            </th>
+            </th> */}
             <th
               scope="col"
               className="px-6 py-3"
@@ -325,7 +330,7 @@ const UserTable = () => {
                 IME {renderSortIcon("ime")}
               </div>
             </th> */}
-            <th
+            {/* <th
               scope="col"
               className="px-6 py-3"
               onClick={() => handleSort("deliveryOption")}
@@ -333,7 +338,7 @@ const UserTable = () => {
               <div className="flex items-center ">
                 Delivery{renderSortIcon("deliveryOption")}
               </div>
-            </th>
+            </th> */}
             <th
               scope="col"
               className="px-6 py-3"
@@ -370,14 +375,14 @@ const UserTable = () => {
           {currentItems.map((item, index) => (
             <tr
               key={index}
-              className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
+              className="bg-white hover:cursor-pointer dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
             >
               <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 {item.jobsheetno}
               </td>
               {/* <td className="px-6 py-4">{item.address}</td> */}
               <td className="px-6 py-4">{item.username}</td>
-              <td className="px-6 py-4">{item.problem}</td>
+              {/* <td className="px-6 py-4">{item.problem}</td> */}
               <td className="px-6 py-4">{item.number}</td>
               <td className="px-6 py-4">{item.brand}</td>
               {/* <td className="px-6 py-4">{item.model}</td> */}
@@ -385,7 +390,7 @@ const UserTable = () => {
               {/* <td className="px-6 py-4">{item.condition}</td> */}
               {/* <td className="px-6 py-4">{item.place}</td> */}
               {/* <td className="px-6 py-4">{item.ime}</td> */}
-              <td className="px-6 py-4">{item.deliveryOption}</td>
+              {/* <td className="px-6 py-4">{item.deliveryOption}</td> */}
               <td className="px-6 py-4 ">
                 <div
                   className={`border-2 p-2 px-3 rounded-lg ${
@@ -401,31 +406,31 @@ const UserTable = () => {
               {/* <td className="px-6 py-4">{item.remark}</td> */}
               <td className="px-6 py-4 text-right flex">
                 <Link to={`/getsingle/${item?._id}`}>
-                  <div className="font-medium text-blue-600  bg-purple-500 mr-3  p-2 px-5 rounded-lg dark:text-white hover:underline flex items-center justify-center">
+                  <div className="font-medium text-white  bg-purple-500 mr-3  p-2 px-5 rounded-lg dark:text-white hover:underline flex items-center justify-center">
                     <FaEye />
                   </div>
                 </Link>
                 <div
                   onClick={() => handleJobCard(item?._id)}
-                  className="font-medium text-blue-600  bg-teal-400 mr-3  p-2 px-5 rounded-lg dark:text-white hover:underline flex items-center justify-center hover:cursor-pointer"
+                  className="font-medium text-white  bg-teal-400 mr-3  p-2 px-5 rounded-lg dark:text-white hover:underline flex items-center justify-center hover:cursor-pointer"
                 >
                <IoIdCardOutline size={20}/>
                 </div>
 
                 <Link to={`/edit/${item?._id}`}>
-                  <div className="font-medium text-blue-600 bg-blue-500 mr-3 p-2 px-5 rounded-lg dark:text-white hover:underline">
+                  <div className="font-medium text-white bg-blue-500 mr-3 p-2 px-5 rounded-lg dark:text-white hover:underline">
                     Edit
                   </div>
                 </Link>
                 <div
                   onClick={() => handleDelete(item?._id)}
-                  className="font-medium text-blue-600  bg-red-500 p-2 px-5 rounded-lg dark:text-white hover:underline hover:cursor-pointer"
+                  className="font-medium text-white  bg-red-500 p-2 px-5 rounded-lg dark:text-white hover:underline hover:cursor-pointer"
                 >
                   Delete
                 </div>
                 <div
                   onClick={() => handleInvoice(item?._id)}
-                  className="font-medium text-blue-600  bg-green-500 ml-3  p-2 px-5 rounded-lg dark:text-white hover:underline flex items-center justify-center hover:cursor-pointer"
+                  className="font-medium text-white  bg-green-500 ml-3  p-2 px-5 rounded-lg dark:text-white hover:underline flex items-center justify-center hover:cursor-pointer"
                 >
                   <HiOutlineDocumentDownload size={20} />
                 </div>

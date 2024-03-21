@@ -181,12 +181,13 @@ const EditSingle = () => {
             id="status"
             value={formData.status || ""}
             onChange={handleChange}
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             <option value="new">New</option>
             <option value="pending">Pending</option>
             <option value="working">Working</option>
             <option value="completed">Completed</option>
+            <option value="not completed">Not Completed</option>
           </select>
         </div>
         <div className="grid md:grid-cols-2 md:gap-6">
@@ -261,25 +262,25 @@ const EditSingle = () => {
             />
           </div>
         </div>
-      
-          <div className="relative z-0 w-full mb-5 group">
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Condition
-            </label>
-            <input
-              type="text"
-              id="condition"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Condition"
-              required
-              value={formData.condition || ""}
-              onChange={handleChange}
-            />
-          </div>
-          {/* <div className="relative z-0 w-full mb-5 group">
+
+        <div className="relative z-0 w-full mb-5 group">
+          <label
+            htmlFor="email"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Condition
+          </label>
+          <input
+            type="text"
+            id="condition"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Condition"
+            required
+            value={formData.condition || ""}
+            onChange={handleChange}
+          />
+        </div>
+        {/* <div className="relative z-0 w-full mb-5 group">
             <label
               htmlFor="category"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -296,7 +297,7 @@ const EditSingle = () => {
               onChange={handleChange}
             />
           </div> */}
-       
+
         <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
             <label

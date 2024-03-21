@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Logo from '../assets/Logo.png'
 
 function Navbar({ toggleSidebar }) {
   return (
@@ -14,8 +15,8 @@ function Navbar({ toggleSidebar }) {
               </svg>
             </button>
             <a href="/user" className="flex ms-2 md:me-24">
-              {/* <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 me-3" alt="FlowBite Logo" /> */}
-              <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Logo</span>
+              <img src={Logo}  className="h-12 me-3 bg-black rounded-full" alt="FlowBite Logo" />
+              <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">M TECH</span>
             </a>
           </div>
           <div className="flex items-center">
