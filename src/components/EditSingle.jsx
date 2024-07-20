@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditSingle = () => {
   const { id } = useParams();
@@ -109,7 +111,7 @@ const EditSingle = () => {
 
       setLoading(false);
       setError(null);
-
+      toast.success("Edited successful!"); 
       navigate("/user");
     } catch (error) {
       setLoading(false);

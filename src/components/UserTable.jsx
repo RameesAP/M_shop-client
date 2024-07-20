@@ -227,7 +227,7 @@ const UserTable = () => {
         />
       </div>
       <Link to={"/addjob"}>
-        <button className=" w-fit text-white mb-10 p-2 px-5 rounded-lg bg-green-500">
+        <button  className=" w-fit text-white mb-10 p-2 px-5 rounded-lg bg-green-500">
           Add Job
         </button>
       </Link>

@@ -12,6 +12,8 @@ import PrivateRoute from "./components/Privaterouter";
 import SingleEdit from "./pages/SingleEdit";
 import Preview from "./pages/Preview";
 import Completed from "./pages/Completed";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -26,8 +28,11 @@ function App() {
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
+  const notify = () => toast("Wow so easy!");
+  
   return (
     <BrowserRouter>
+       <ToastContainer />
       {currentUser && <Navbar toggleSidebar={toggleSidebar} />}
       {currentUser && <Sidebar isOpen={isSidebarOpen} />}
       <Routes>
