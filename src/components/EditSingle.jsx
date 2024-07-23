@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditSingle = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [deliveryOption, setDeliveryOption] = useState("");
+  const [shopOrPerson, setShopOrPerson] = useState("");
   const [formData, setFormData] = useState({
     username: "",
     address: "",
@@ -53,6 +54,7 @@ const EditSingle = () => {
         });
 
         setDeliveryOption(data.singleItem.deliveryOption || ""); // Ensure it's set to a valid value
+        setShopOrPerson(data.singleItem.shopOrPerson || ""); // Ensure it's set to a valid value
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -63,6 +65,9 @@ const EditSingle = () => {
 
   const handleDeliveryOptionChange = (e) => {
     setDeliveryOption(e.target.value);
+  };
+  const handleshopOrPersonChange = (e) => {
+    setShopOrPerson(e.target.value);
   };
   const handleChange = (e) => {
     const { id, value, type, checked } = e.target;
@@ -98,6 +103,7 @@ const EditSingle = () => {
         body: JSON.stringify({
           ...formData,
           deliveryOption: deliveryOption,
+          shopOrPerson: shopOrPerson,
           technician_name: formData.technician_name,
         }),
       });
@@ -111,7 +117,7 @@ const EditSingle = () => {
 
       setLoading(false);
       setError(null);
-      toast.success("Edited successful!"); 
+      toast.success("Edited successful!");
       navigate("/user");
     } catch (error) {
       setLoading(false);
@@ -121,57 +127,80 @@ const EditSingle = () => {
   return (
     <div>
       <form onSubmit={handleSubmit} className="max-w-5xl mx-auto  text-black">
-        <div className="relative z-0 w-full mb-5 group ">
-          <label
-            htmlFor="text"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            id="username"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="User Name"
-            required
-            value={formData.username || ""}
-            onChange={handleChange}
-          />
+        <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="relative z-0 w-full mb-5 group ">
+            <label
+              htmlFor="text"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              id="username"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="User Name"
+              required
+              value={formData.username || ""}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="number"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Mobile Number
+            </label>
+            <input
+              type="number"
+              id="number"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Mobile Number"
+              required
+              value={formData.number || ""}
+              onChange={handleChange}
+            />
+          </div>
         </div>
-        <div className="relative z-0 w-full mb-5 group">
-          <label
-            htmlFor="text"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Address
-          </label>
-          <input
-            type="text"
-            id="address"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Address"
-            required
-            value={formData.address || ""}
-            onChange={handleChange}
-          />
+
+        <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="brand"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Brand
+            </label>
+            <input
+              type="text"
+              id="brand"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Product brand"
+              required
+              value={formData.brand || ""}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="email"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Model
+            </label>
+            <input
+              type="text"
+              id="model"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Model Number"
+              required
+              value={formData.model || ""}
+              onChange={handleChange}
+            />
+          </div>
         </div>
-        <div className="relative z-0 w-full mb-5 group">
-          <label
-            htmlFor="text"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Problem
-          </label>
-          <input
-            type="text"
-            id="problem"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Problem"
-            required
-            value={formData.problem || ""}
-            onChange={handleChange}
-          />
-        </div>
+
         <div className="relative z-0 w-full mb-5 group">
           <label
             for="countries"
@@ -192,77 +221,23 @@ const EditSingle = () => {
             <option value="not completed">Not Completed</option>
           </select>
         </div>
-        <div className="grid md:grid-cols-2 md:gap-6">
-          <div className="relative z-0 w-full mb-5 group">
-            <label
-              htmlFor="number"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Mobile Number
-            </label>
-            <input
-              type="number"
-              id="number"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Mobile Number"
-              required
-              value={formData.number || ""}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <label
-              htmlFor="brand"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Brand
-            </label>
-            <input
-              type="text"
-              id="brand"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Product brand"
-              required
-              value={formData.brand || ""}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className="grid md:grid-cols-2 md:gap-6">
-          <div className="relative z-0 w-full mb-5 group">
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Model
-            </label>
-            <input
-              type="text"
-              id="model"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Model Number"
-              required
-              value={formData.model || ""}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <label
-              htmlFor="category"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Category
-            </label>
-            <input
-              type="text"
-              id="category"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Category"
-              required
-              value={formData.category || ""}
-              onChange={handleChange}
-            />
-          </div>
+
+        <div className="relative z-0 w-full mb-5 group">
+          <label
+            htmlFor="category"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Category
+          </label>
+          <input
+            type="text"
+            id="category"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Category"
+            required
+            value={formData.category || ""}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="relative z-0 w-full mb-5 group">
@@ -348,6 +323,50 @@ const EditSingle = () => {
             </div>
           </div>
         </div>
+        <div className="relative z-0 w-full mb-5 group">
+          <label
+            htmlFor="category"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Delivery
+          </label>
+          <div className="flex gap-10">
+            <div className="flex items-center mb-4">
+              <input
+                id="SHOP"
+                type="radio"
+                name="shopOrPerson"
+                value="SHOP"
+                onChange={handleshopOrPersonChange}
+                checked={shopOrPerson === "SHOP"}
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                htmlFor="SHOP"
+                className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                SHOP
+              </label>
+            </div>
+            <div className="flex items-center mb-4">
+              <input
+                id="PERSON"
+                type="radio"
+                name="shopOrPerson"
+                value="PERSON"
+                onChange={handleshopOrPersonChange}
+                checked={shopOrPerson === "PERSON"}
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                htmlFor="PERSON"
+                className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                PERSON
+              </label>
+            </div>
+          </div>
+        </div>
         <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
             <label
@@ -424,9 +443,50 @@ const EditSingle = () => {
             />
           </div>
         </div>
-        <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="text"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Address
+            </label>
+            <input
+              type="text"
+              id="address"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Address"
+              required
+              value={formData.address || ""}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="text"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Problem
+            </label>
+            <input
+              type="text"
+              id="problem"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Problem"
+              required
+              value={formData.problem || ""}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="flex items-center justify-center">
+          <button className="w-full px-16  text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  sm:w-auto  py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            {loading ? "Loading" : "Submit"}
+          </button>
+        </div>
+        {/* <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           {loading ? "Loading" : "Submit"}
-        </button>
+        </button> */}
 
         {error && <p className="text-red-500 mt-5">{error}</p>}
       </form>

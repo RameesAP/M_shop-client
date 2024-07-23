@@ -378,7 +378,7 @@ const UserTable = () => {
               className="bg-white hover:cursor-pointer dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
             >
               <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {item.jobsheetno}
+                JOB00{item.jobsheetno}
               </td>
               {/* <td className="px-6 py-4">{item.address}</td> */}
               <td className="px-6 py-4">{item.username}</td>
@@ -393,9 +393,11 @@ const UserTable = () => {
               {/* <td className="px-6 py-4">{item.deliveryOption}</td> */}
               <td className="px-6 py-4 ">
                 <div
-                  className={`border-2 p-2 px-3 rounded-lg ${
-                    getStatusColor(item.status).borderColor
-                  } ${
+
+//  inclassName border-2   ${getStatusColor(item.status).borderColor} 
+                  className={` p-2 px-3 rounded-lg 
+                  
+                  ${
                     getStatusColor(item.status).textColor
                   } text-center font-semibold uppercase`}
                 >

@@ -6,6 +6,7 @@ const ShowSingle = () => {
   const navigate = useNavigate();
 
   const [deliveryOption, setDeliveryOption] = useState("");
+  const [shopOrPerson, setShopOrPerson] = useState("");
   const [formData, setFormData] = useState({
     username: "",
     address: "",
@@ -51,6 +52,7 @@ const ShowSingle = () => {
         });
 
         setDeliveryOption(data.singleItem.deliveryOption || ""); // Ensure it's set to a valid value
+        setShopOrPerson(data.singleItem.shopOrPerson || ""); // Ensure it's set to a valid value
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -76,6 +78,9 @@ const ShowSingle = () => {
 
   const handleDeliveryOptionChange = (e) => {
     setDeliveryOption(e.target.value);
+  };
+  const handleshopOrPersonChange = (e) => {
+    setShopOrPerson(e.target.value);
   };
   const handleChange = (e) => {
     const { id, value, type, checked } = e.target;
@@ -117,66 +122,89 @@ const ShowSingle = () => {
   //   };
   return (
     <div className="max-w-5xl mx-auto ">
-      <Link to={`/edit/${id}`}>
+      {/* <Link to={`/edit/${id}`}>
         <button className="  w-fit text-white mb-8 p-2 px-5 rounded-lg bg-blue-500">
           Edit
         </button>
-      </Link>
+      </Link> */}
       <form className=" text-black">
-        <div className="relative z-0 w-full mb-5 group ">
-          <label
-            htmlFor="text"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            id="username"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="User Name"
-            required
-            value={formData.username || ""}
-            onChange={handleChange}
-            disabled
-          />
+        <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="relative z-0 w-full mb-5 group ">
+            <label
+              htmlFor="text"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              id="username"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="User Name"
+              required
+              value={formData.username || ""}
+              onChange={handleChange}
+              disabled
+            />
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="number"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Mobile Number
+            </label>
+            <input
+              type="number"
+              id="number"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Mobile Number"
+              required
+              value={formData.number || ""}
+              onChange={handleChange}
+              disabled
+            />
+          </div>
         </div>
-        <div className="relative z-0 w-full mb-5 group">
-          <label
-            htmlFor="text"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Address
-          </label>
-          <input
-            type="text"
-            id="address"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Address"
-            required
-            value={formData.address || ""}
-            onChange={handleChange}
-            disabled
-          />
+        <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="brand"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Brand
+            </label>
+            <input
+              type="text"
+              id="brand"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Product brand"
+              required
+              value={formData.brand || ""}
+              onChange={handleChange}
+              disabled
+            />
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="email"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Model
+            </label>
+            <input
+              type="text"
+              id="model"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Model Number"
+              required
+              value={formData.model || ""}
+              onChange={handleChange}
+              disabled
+            />
+          </div>
         </div>
-        <div className="relative z-0 w-full mb-5 group">
-          <label
-            htmlFor="text"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Problem
-          </label>
-          <input
-            type="text"
-            id="problem"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Problem"
-            required
-            value={formData.problem || ""}
-            onChange={handleChange}
-            disabled
-          />
-        </div>
+
         <div className="relative z-0 w-full mb-5 group">
           <label
             for="countries"
@@ -197,63 +225,8 @@ const ShowSingle = () => {
             <option value="completed">Completed</option>
           </select>
         </div>
-        <div className="grid md:grid-cols-2 md:gap-6">
-          <div className="relative z-0 w-full mb-5 group">
-            <label
-              htmlFor="number"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Mobile Number
-            </label>
-            <input
-              type="number"
-              id="number"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Mobile Number"
-              required
-              value={formData.number || ""}
-              onChange={handleChange}
-              disabled
-            />
-          </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <label
-              htmlFor="brand"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Brand
-            </label>
-            <input
-              type="text"
-              id="brand"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Product brand"
-              required
-              value={formData.brand || ""}
-              onChange={handleChange}
-              disabled
-            />
-          </div>
-        </div>
-        <div className="grid md:grid-cols-2 md:gap-6">
-          <div className="relative z-0 w-full mb-5 group">
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Model
-            </label>
-            <input
-              type="text"
-              id="model"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Model Number"
-              required
-              value={formData.model || ""}
-              onChange={handleChange}
-              disabled
-            />
-          </div>
+
+       
           <div className="relative z-0 w-full mb-5 group">
             <label
               htmlFor="category"
@@ -272,27 +245,27 @@ const ShowSingle = () => {
               disabled
             />
           </div>
-        </div>
        
-          <div className="relative z-0 w-full mb-5 group">
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Condition
-            </label>
-            <input
-              type="text"
-              id="condition"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Condition"
-              required
-              value={formData.condition || ""}
-              onChange={handleChange}
-              disabled
-            />
-          </div>
-          {/* <div className="relative z-0 w-full mb-5 group">
+
+        <div className="relative z-0 w-full mb-5 group">
+          <label
+            htmlFor="email"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Condition
+          </label>
+          <input
+            type="text"
+            id="condition"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Condition"
+            required
+            value={formData.condition || ""}
+            onChange={handleChange}
+            disabled
+          />
+        </div>
+        {/* <div className="relative z-0 w-full mb-5 group">
             <label
               htmlFor="category"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -310,7 +283,7 @@ const ShowSingle = () => {
               disabled
             />
           </div> */}
-     
+
         <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
             <label
@@ -360,6 +333,35 @@ const ShowSingle = () => {
             </div>
           </div>
         </div>
+        <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="category"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Delivery
+            </label>
+            <div className="flex gap-10">
+              {["SHOP", "PERSON"].map((option) => (
+                <div className="flex items-center mb-4" key={option}>
+                  <input
+                    id={option}
+                    type="radio"
+                    name="shopOrPerson"
+                    value={option}
+                    onChange={handleshopOrPersonChange}
+                    checked={shopOrPerson === option}
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  />
+                  <label
+                    htmlFor={option}
+                    className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    {option.charAt(0).toUpperCase() + option.slice(1)}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
         <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
             <label
@@ -440,6 +442,51 @@ const ShowSingle = () => {
               disabled
             />
           </div>
+        </div>
+        <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="text"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Address
+            </label>
+            <input
+              type="text"
+              id="address"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Address"
+              required
+              value={formData.address || ""}
+              onChange={handleChange}
+              disabled
+            />
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="text"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Problem
+            </label>
+            <textarea
+              type="text"
+              id="problem"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Problem"
+              required
+              value={formData.problem || ""}
+              onChange={handleChange}
+              disabled
+            />
+          </div>
+        </div>
+        <div className="flex items-center justify-center">
+          <Link to={`/edit/${id}`}>
+            <button className=" w-full px-10 text-white mb-8 p-2 rounded-lg bg-blue-500">
+              Edit
+            </button>
+          </Link>
         </div>
         {/* <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           {loading ? "Loading" : "Submit"}

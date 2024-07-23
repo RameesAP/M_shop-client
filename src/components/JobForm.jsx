@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const JobForm = () => {
   const [deliveryOption, setDeliveryOption] = useState("");
+  const [shopOrPerson, setShopOrPerson] = useState("");
 
   const [formData, setFormData] = useState({
     username: "",
@@ -48,6 +49,9 @@ const JobForm = () => {
   const handleDeliveryOptionChange = (e) => {
     setDeliveryOption(e.target.value);
   };
+  const handleshopOrPersonChange = (e) => {
+    setShopOrPerson(e.target.value);
+  };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -88,6 +92,7 @@ const JobForm = () => {
         body: JSON.stringify({
           ...formData,
           deliveryOption: deliveryOption,
+          shopOrPerson: shopOrPerson,
           technician_name: formData.technician_name,
         }),
       });
@@ -118,7 +123,7 @@ const JobForm = () => {
       });
       setDeliveryOption("");
       // window.location.reload()
-      toast.success("Job Added successful!"); 
+      toast.success("Job Added successful!");
       navigate("/user");
     } catch (error) {
       setLoading(false);
@@ -129,57 +134,24 @@ const JobForm = () => {
   return (
     <div>
       <form onSubmit={handleSubmit} className="max-w-5xl mx-auto text-black">
-        <div className="relative z-0 w-full mb-5 group ">
-          <label
-            htmlFor="text"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            id="username"
-            value={userData?.username}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Name"
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <div className="relative z-0 w-full mb-5 group">
-          <label
-            htmlFor="text"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Address
-          </label>
-          <input
-            type="text"
-            id="address"
-            value={userData?.address}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Address"
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <div className="relative z-0 w-full mb-5 group">
-          <label
-            htmlFor="text"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Problem
-          </label>
-          <input
-            type="text"
-            id="problem"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Problem"
-            required
-            onChange={handleChange}
-          />
-        </div>
         <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="relative z-0 w-full mb-5 group ">
+            <label
+              htmlFor="text"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              id="username"
+              value={userData?.username}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Name"
+              required
+              onChange={handleChange}
+            />
+          </div>
           <div className="relative z-0 w-full mb-5 group">
             <label
               htmlFor="number"
@@ -188,14 +160,24 @@ const JobForm = () => {
               Mobile Number
             </label>
             <input
-              type="number"
+              type="text"
+              inputMode="numeric"
               id="number"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Mobile Number"
               required
               onChange={handleChange}
+              pattern="[0-9]{10}"
+              onInvalid={(e) =>
+                e.target.setCustomValidity(
+                  "Please enter a valid 10-digit mobile number"
+                )
+              }
+              onInput={(e) => e.target.setCustomValidity("")}
             />
           </div>
+        </div>
+        <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
             <label
               htmlFor="brand"
@@ -212,8 +194,6 @@ const JobForm = () => {
               onChange={handleChange}
             />
           </div>
-        </div>
-        <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
             <label
               htmlFor="email"
@@ -230,22 +210,23 @@ const JobForm = () => {
               onChange={handleChange}
             />
           </div>
-          <div className="relative z-0 w-full mb-5 group">
-            <label
-              htmlFor="category"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Category
-            </label>
-            <input
-              type="text"
-              id="category"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Category"
-              required
-              onChange={handleChange}
-            />
-          </div>
+        </div>
+
+        <div className="relative z-0 w-full mb-5 group">
+          <label
+            htmlFor="category"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Category
+          </label>
+          <input
+            type="text"
+            id="category"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Category"
+            required
+            onChange={handleChange}
+          />
         </div>
 
         <div className="relative z-0 w-full mb-5 group">
@@ -343,6 +324,50 @@ const JobForm = () => {
             </div>
           </div>
         </div>
+        <div className="relative z-0 w-full mb-5 group">
+          <label
+            htmlFor="category"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Delivery
+          </label>
+          <div className="flex gap-10">
+            <div className="flex items-center mb-4">
+              <input
+                id="SHOP"
+                type="radio"
+                name="shopOrPerson"
+                value="SHOP"
+                onChange={handleshopOrPersonChange}
+                checked={shopOrPerson === "SHOP"}
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                htmlFor="SHOP"
+                className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                SHOP
+              </label>
+            </div>
+            <div className="flex items-center mb-4">
+              <input
+                id="PERSON"
+                type="radio"
+                name="shopOrPerson"
+                value="PERSON"
+                onChange={handleshopOrPersonChange}
+                checked={shopOrPerson === "PERSON"}
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              />
+              <label
+                htmlFor="PERSON"
+                className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                PERSON
+              </label>
+            </div>
+          </div>
+        </div>
         <div className="grid md:grid-cols-2 md:gap-6">
           <div className="relative z-0 w-full mb-5 group">
             <label
@@ -372,6 +397,41 @@ const JobForm = () => {
               id="remark"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Remark"
+              required
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className="grid md:grid-cols-2 md:gap-6">
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="text"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Address
+            </label>
+            <input
+              type="text"
+              id="address"
+              value={userData?.address}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Address"
+              required
+              onChange={handleChange}
+            />
+          </div>
+          <div className="relative z-0 w-full mb-5 group">
+            <label
+              htmlFor="text"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Problem
+            </label>
+            <textarea
+              type="text"
+              id="problem"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Problem"
               required
               onChange={handleChange}
             />
@@ -416,9 +476,11 @@ const JobForm = () => {
             />
           </div>
         </div> */}
-        <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          {loading ? "Loading" : "Submit"}
-        </button>
+        <div className="flex items-center justify-center">
+          <button className="w-full px-16  text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm  sm:w-auto  py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            {loading ? "Loading" : "Submit"}
+          </button>
+        </div>
 
         {error && <p className="text-red-500 mt-5">{error}</p>}
       </form>
