@@ -8,7 +8,8 @@ export default defineConfig({
     proxy: {
       "/api": {
         // target: "http://localhost:5000",
-        target: "https://m-shop-server-dd28.onrender.com",
+        // target: "https://m-shop-server-dd28.onrender.com",
+        target: process.env.VITE_API_URL,
         secure: true,
         changeOrigin: true,
         // credentials: "include",
