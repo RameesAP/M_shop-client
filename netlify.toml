@@ -1,8 +1,4 @@
-# Redirect all non-API routes to the SPA entry point
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+
 
 # Proxy API requests to the backend server
 [[redirects]]
