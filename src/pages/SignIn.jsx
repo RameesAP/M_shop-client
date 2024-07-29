@@ -117,7 +117,7 @@ const SignIn = () => {
     e.preventDefault();
     try {
       dispatch(signInStart());
-
+      console.log('Request URL:', `/api/auth/signin`);
       const res = await fetch(`/api/auth/signin`, {
         method: "POST",
         headers: {
