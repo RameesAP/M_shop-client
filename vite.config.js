@@ -11,7 +11,7 @@ export default defineConfig({
         target: "https://m-shop-server-dd28.onrender.com",
         secure: true,
         changeOrigin: true,
-        credentials: "include",
+        // credentials: "include",
       },
     },
     port: 3000,
