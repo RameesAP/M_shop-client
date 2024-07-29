@@ -227,7 +227,7 @@ const UserTable = () => {
         />
       </div>
       <Link to={"/addjob"}>
-        <button  className=" w-fit text-white mb-10 p-2 px-5 rounded-lg bg-green-500">
+        <button  className=" w-fit text-white mb-10 p-2 px-5 rounded-lg bg-gray-700 hover:bg-gray-800">
           Add Job
         </button>
       </Link>
@@ -408,31 +408,31 @@ const UserTable = () => {
               {/* <td className="px-6 py-4">{item.remark}</td> */}
               <td className="px-6 py-4 text-right flex">
                 <Link to={`/getsingle/${item?._id}`}>
-                  <div className="font-medium text-white  bg-purple-500 mr-3  p-2 px-5 rounded-lg dark:text-white hover:underline flex items-center justify-center">
+                  <div className="font-medium text-white  bg-gray-700 hover:bg-gray-800 mr-3  p-2 px-5 rounded-lg dark:text-white  flex items-center justify-center">
                     <FaEye />
                   </div>
                 </Link>
                 <div
                   onClick={() => handleJobCard(item?._id)}
-                  className="font-medium text-white  bg-teal-400 mr-3  p-2 px-5 rounded-lg dark:text-white hover:underline flex items-center justify-center hover:cursor-pointer"
+                  className="font-medium text-white  bg-gray-700 hover:bg-gray-800 mr-3  p-2 px-5 rounded-lg dark:text-white  flex items-center justify-center hover:cursor-pointer"
                 >
                <IoIdCardOutline size={20}/>
                 </div>
 
                 <Link to={`/edit/${item?._id}`}>
-                  <div className="font-medium text-white bg-blue-500 mr-3 p-2 px-5 rounded-lg dark:text-white hover:underline">
+                  <div className="font-medium text-white bg-gray-700 hover:bg-gray-800 mr-3 p-2 px-5 rounded-lg dark:text-white ">
                     Edit
                   </div>
                 </Link>
                 <div
                   onClick={() => handleDelete(item?._id)}
-                  className="font-medium text-white  bg-red-500 p-2 px-5 rounded-lg dark:text-white hover:underline hover:cursor-pointer"
+                  className="font-medium text-white  bg-gray-700 hover:bg-gray-800 p-2 px-5 rounded-lg dark:text-white  hover:cursor-pointer"
                 >
                   Delete
                 </div>
                 <div
                   onClick={() => handleInvoice(item?._id)}
-                  className="font-medium text-white  bg-green-500 ml-3  p-2 px-5 rounded-lg dark:text-white hover:underline flex items-center justify-center hover:cursor-pointer"
+                  className="font-medium text-white  bg-gray-700 hover:bg-gray-800 ml-3  p-2 px-5 rounded-lg dark:text-white hover:underline flex items-center justify-center hover:cursor-pointer"
                 >
                   <HiOutlineDocumentDownload size={20} />
                 </div>
