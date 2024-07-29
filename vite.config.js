@@ -11,7 +11,7 @@ export default defineConfig({
         target: "https://m-shop-server-dd28.onrender.com",
         // target: process.env.VITE_API_URL,
         // secure: true,
-        // changeOrigin: true,
+        changeOrigin: true,
         // credentials: "include",
       },
     },
