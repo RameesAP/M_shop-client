@@ -1,6 +1,6 @@
 
 
-# Proxy API requests to the backend server
+
 [[redirects]]
   from = "/api/*"
   to = "https://m-shop-server-dd28.onrender.com/:splat"
