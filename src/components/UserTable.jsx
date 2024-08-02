@@ -93,7 +93,7 @@ const UserTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/user/getjobdata");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/getjobdata`);
         const fetchedData = await response.json();
         console.log(fetchedData, "fettt");
         setData(fetchedData); // Set the fetched data into the state
