@@ -29,7 +29,7 @@ const JobForm = () => {
 
   const handleUserCheck = async (mobileNumber) => {
     try {
-      const res = await fetch(`/api/user/checkUser/${mobileNumber}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/checkUser/${mobileNumber}`, {
         headers: {
           "Cache-Control": "no-store",
         },
@@ -70,7 +70,7 @@ const JobForm = () => {
 
   useEffect(() => {
     // Fetch technician data from the API
-    fetch("/api/technician/getAllTechnician")
+    fetch(`${import.meta.env.VITE_API_URL}/api/technician/getAllTechnician`)
       .then((response) => response.json())
       .then((data) => {
         // Assuming the response data is an array of objects with technician details
@@ -84,7 +84,7 @@ const JobForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/user/createjob", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/createjob`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

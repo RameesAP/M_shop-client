@@ -29,7 +29,7 @@ const ShowSingle = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`/api/user/getsingleitem/${id}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/getsingleitem/${id}`);
         const data = await res.json();
         console.log(data, "settt");
         // Set the initial values for formData and deliveryOption
@@ -65,7 +65,7 @@ const ShowSingle = () => {
 
   useEffect(() => {
     // Fetch technician data from the API
-    fetch("/api/technician/getAllTechnician")
+    fetch(`${import.meta.env.VITE_API_URL}/api/technician/getAllTechnician`)
       .then((response) => response.json())
       .then((data) => {
         // Assuming the response data is an array of objects with technician details

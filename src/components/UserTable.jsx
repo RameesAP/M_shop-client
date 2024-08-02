@@ -43,7 +43,7 @@ const UserTable = () => {
         return;
       }
 
-      const response = await axios.delete(`/api/user/deleteitem/${itemId}`);
+      const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/user/deleteitem/${itemId}`);
 
       // Check the response and handle it accordingly
       if (response.status === 200) {
@@ -61,7 +61,7 @@ const UserTable = () => {
   const handleInvoice = async (itemId, additionalData) => {
     try {
       // Make an API request to get the invoice data
-      const response = await fetch(`/api/user/getinvoice/${itemId}`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/getinvoice/${itemId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch invoice data');
       }
@@ -78,7 +78,7 @@ const UserTable = () => {
 
   const handleJobCard = async(itemId)=>{
     try {
-      const response =await fetch(`/api/user/getjobcard/${itemId}`);
+      const response =await fetch(`${import.meta.env.VITE_API_URL}/api/user/getjobcard/${itemId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch getjobcard data');
       }
