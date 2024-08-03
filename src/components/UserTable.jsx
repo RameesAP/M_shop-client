@@ -43,7 +43,9 @@ const UserTable = () => {
         return;
       }
 
-      const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/user/deleteitem/${itemId}`);
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/api/user/deleteitem/${itemId}`
+      );
 
       // Check the response and handle it accordingly
       if (response.status === 200) {
@@ -61,39 +63,44 @@ const UserTable = () => {
   const handleInvoice = async (itemId, additionalData) => {
     try {
       // Make an API request to get the invoice data
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/getinvoice/${itemId}`);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/user/getinvoice/${itemId}`
+      );
       if (!response.ok) {
-        throw new Error('Failed to fetch invoice data');
+        throw new Error("Failed to fetch invoice data");
       }
       const pdfBlob = await response.blob();
       const pdfUrl = URL.createObjectURL(pdfBlob);
-      window.open(pdfUrl, '_blank');
+      window.open(pdfUrl, "_blank");
 
       // Your logic here with the invoice data
-
     } catch (error) {
-      console.error('Error fetching invoice data:', error);
+      console.error("Error fetching invoice data:", error);
     }
   };
 
-  const handleJobCard = async(itemId)=>{
+  const handleJobCard = async (itemId) => {
     try {
-      const response =await fetch(`${import.meta.env.VITE_API_URL}/api/user/getjobcard/${itemId}`);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/user/getjobcard/${itemId}`
+      );
       if (!response.ok) {
-        throw new Error('Failed to fetch getjobcard data');
+        throw new Error("Failed to fetch getjobcard data");
       }
       const pdfBlob = await response.blob();
       const pdfUrl = URL.createObjectURL(pdfBlob);
-      window.open(pdfUrl, '_blank');
+      window.open(pdfUrl, "_blank");
     } catch (error) {
-      console.error('Error fetching getjobcard data:', error);
+      console.error("Error fetching getjobcard data:", error);
     }
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user/getjobdata`);
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/user/getjobdata`
+        );
         const fetchedData = await response.json();
         console.log(fetchedData, "fettt");
         setData(fetchedData); // Set the fetched data into the state
@@ -217,20 +224,26 @@ const UserTable = () => {
           </div>
         )}
       </div>
-      <div className="border  rounded-lg bg-white mb-5 ">
+      <div className="flex  justify-between  rounded-lg mb-5 ">
+        <Link to={"/addjob"}>
+          <button className="px-10 w-fit text-white mb-10 p-2  rounded-lg bg-gray-700 hover:bg-gray-800">
+            Add Job
+          </button>
+        </Link>
+
         <input
-          className="w-full h-full p-2 outline-none"
+          className="md:w-[500px] h-full p-2 outline-none mb-5 rounded-lg"
           type="search"
           placeholder="Search"
           value={searchQuery}
           onChange={handleSearch}
         />
       </div>
-      <Link to={"/addjob"}>
+      {/* <Link to={"/addjob"}>
         <button  className=" w-fit text-white mb-10 p-2 px-5 rounded-lg bg-gray-700 hover:bg-gray-800">
           Add Job
         </button>
-      </Link>
+      </Link> */}
 
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -247,7 +260,7 @@ const UserTable = () => {
               className="px-6 py-3"
               onClick={() => handleSort("username")}
             >
-               Name {renderSortIcon("username")}
+              Name {renderSortIcon("username")}
             </th>
             {/* <th
               scope="col"
@@ -393,8 +406,7 @@ const UserTable = () => {
               {/* <td className="px-6 py-4">{item.deliveryOption}</td> */}
               <td className="px-6 py-4 ">
                 <div
-
-//  inclassName border-2   ${getStatusColor(item.status).borderColor} 
+                  //  inclassName border-2   ${getStatusColor(item.status).borderColor}
                   className={` p-2 px-3 rounded-lg 
                   
                   ${
@@ -416,7 +428,7 @@ const UserTable = () => {
                   onClick={() => handleJobCard(item?._id)}
                   className="font-medium text-white  bg-gray-700 hover:bg-gray-800 mr-3  p-2 px-5 rounded-lg dark:text-white  flex items-center justify-center hover:cursor-pointer"
                 >
-               <IoIdCardOutline size={20}/>
+                  <IoIdCardOutline size={20} />
                 </div>
 
                 <Link to={`/edit/${item?._id}`}>
